@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+
+// Sample component for an element
+const ElementItem = ({ value, moveUp, moveDown, index }) => (
+  <li>
+    {value}
+    <button onClick={() => moveUp(index)} disabled={index === 0}>
+      Up
+    </button>
+    <button onClick={() => moveDown(index)} disabled={index === elements.length - 1}>
+      Down
+    </button>
+  </li>
+);
+
+function App() {
+  // Sample array of elements
+  const [elements, setElements] = useState([
+    { id: 1, value: 'Component A' },
+    { id: 2, value: 'Component B' },
+    { id: 3, value: 'Component C' },
+    { id: 4, value: 'Component D' },
+    { id: 5, value: 'Component E' },
+  ]);
+
+  // Function to move an element up
+  const moveUp = (index) => {
+    if (index > 0) {
+      const newArray = [...elements];
+      const temp = newArray[index];
+      newArray[index] = newArray[index - 1];
+      newArray[index - 1] = temp;
+      setElements(newArray);
+    }
+  };
+
+  // Function to move an element down
+  const moveDown = (index) => {
+    if (index < elements.length - 1) {
+      const newArray = [...elements];
+      const temp = newArray[index];
+      newArray[index] = newArray[index + 1];
+      newArray[index + 1] = temp;
+      setElements(newArray);
+    }
+  };
+
+  return (
+    <div>
+      <ul>
+        {elements.map((element, index) => (
+          <ElementItem
+            key={element.id}
+            value={element.value}
+            moveUp={moveUp}
+            moveDown={moveDown}
+            index={index}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
