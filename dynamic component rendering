@@ -1,0 +1,53 @@
+import React, { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+import HotDeal from './hotdeal/HotDeal'
+import CategoriesList from './category/CategoriesList'
+import TodayHotDeal from './hotdeal/TodayHotDeal'
+import BrandsList from './brands/BrandsList'
+import AwardsList from './awards/AwardsList'
+import UtilitiesList from './utilities/UtilitiesList'
+import UtilitiesList2 from './utilities/UtilitiesList2'
+import StartupSection from './startup/StartupSection'
+import CountrySection from './country/CountrySection'
+import ProductSection from './product/ProductSection'
+const sections = [
+  { component: HotDeal, title: "" },
+  { component: CategoriesList, title: "Shop From Top Categories" },
+  { component: TodayHotDeal, title: "Today's Hot Deal" },
+  { component: BrandsList, title: "Shop From Top Brands" },
+  { component: AwardsList, title: "Shop Award Winning Product" },
+  { component: UtilitiesList, title: "Utilities Section" },
+  { component: UtilitiesList2, title: "Utilities Section" },
+  { component: StartupSection, title: "Startup Section" },
+  { component: CountrySection, title: "Country Section" },
+  { component: ProductSection, title: "Product Section" },
+]
+const HomePage = () => {
+  const videoUrl = 'https://res.cloudinary.com/genx21/video/upload/v1690354672/home/pktnqxhwoyqgmcaar3p9.mov';
+  return (
+    <main>
+      <div>
+        <section className='max-w-screen-2xl mx-auto'>
+          <div className="h-full relative w-full">
+            <video className=" relative h-full w-full object-fill" autoPlay loop muted playsInline data-wf-ignore="true" data-object-fit="fill">
+              <source src={videoUrl} data-wf-ignore="true" />
+            </video>
+          </div>
+        </section>
+        {sections.map((section, index) => (
+          <section key={index} className='container mx-auto px-5 mt-10'>
+            <div className='flex flex-col'>
+              <div>
+                <p className="cg-header text-start font-bold mb-2 pb-[3px] text-[2rem] border-b-2 border-dashed border-blue-500 py-2">{section.title}</p>
+              </div>
+              <Suspense>
+                <section.component />
+              </Suspense>
+            </div>
+          </section>
+        ))}
+      </div>
+    </main>
+  )
+}
+export default HomePage
